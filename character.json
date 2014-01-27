@@ -1,0 +1,30 @@
+[
+	{
+	  "id":1,
+		"name":"warrior",
+		"attack":4,
+		"hp":12,
+		"init":2
+	},
+	{
+	  "id":2,
+		"name":"dwarf",
+		"attack":3,
+		"hp":15,
+		"init":0
+	},
+	{
+	  "id":3,
+		"name":"wizard",
+		"attack":5,
+		"hp":7,
+		"init":2
+	},
+	{
+	  "id":4,
+		"name":"archer",
+		"attack":3,
+		"hp":12,
+		"init":4
+	}
+]

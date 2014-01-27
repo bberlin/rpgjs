@@ -1,0 +1,30 @@
+[
+  {
+    "id":1,
+    "name":"goblin",
+    "hp":4,
+    "attack":3,
+    "init":2
+  },
+  {
+    "id":2, 
+    "name":"goblin",
+    "hp":4,
+    "attack":3,
+    "init":2
+  },
+  {
+    "id":3,
+    "name":"goblin",
+    "hp":4,
+    "attack":3,
+    "init":2
+  },
+  {
+    "id":4,
+    "name":"goblin",
+    "hp":4,
+    "attack":3,
+    "init":2
+  }
+]
