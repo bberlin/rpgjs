@@ -14,7 +14,7 @@ var character = Backbone.Model.extend({
 	},
 	myTurn : function(){
   	var z = this;
-  	console.log(z);
+  	//console.log(z);
   	debug(z.get("name")+"'s Turn");
 	},
 	attack : function(myEnemy){
@@ -49,16 +49,17 @@ var enemy = character.extend({
     var z = this;
     debug(z.get("name")+"'s Turn");
     
-    var num = roll(w.pcs.length) - 1;
-    console.log(num, w.pcs);
+    var num = roll(w.pcs.length);
+    //console.log(num, w.pcs);
     z.attack(w.pcs[num]);
     //debug(z.get("name")+" attacked "+w.pcs[num].get("name"));
     
     w.nextTurn();
   },
   die : function(){
-    w.battleOrder.splice(w.battleOrder.indexOf(this));
-    w.enemies.splice(w.enemies.indexOf(this));
+    
+    w.battleOrder.splice(w.battleOrder.indexOf(this), 1);
+    w.enemies.splice(w.enemies.indexOf(this), 1);
     this.update();
     debug(this.get("name")+" died");
   }
@@ -78,7 +79,7 @@ var playerCharacter = character.extend({
       var action = $(this);
       if(action.hasClass("attack")){
         var enemies = w.enemies;
-        console.log(enemies);
+        //console.log(enemies);
         $.each(enemies, function(i, e){
           $(".attack").append("<span class='enemy' rel='"+i+"'>"+e.get("name")+"</span>");
         });
@@ -92,6 +93,12 @@ var playerCharacter = character.extend({
         w.nextTurn();
       }
     });
+  },
+  die : function(){
+    w.battleOrder.splice(w.battleOrder.indexOf(this), 1);
+    w.pcs.splice(w.pcs.indexOf(this), 1);
+    this.update();
+    debug(this.get("name")+" died");
   }
 });
 
@@ -154,19 +161,24 @@ var world = Backbone.Model.extend({
   	z.battleOrder[z.currentTurn].myTurn();
   	
   	//setTimeout(function(){
-  	console.log(z.battleOrder);
+  	//console.log(z.battleOrder);
   	//}, 1000);
 	},
 	
 	nextTurn : function(){
 	  var z = this;
-  	if(z.currentTurn >= z.battleOrder.length){
-    	z.currentTurn = 0;
-  	} else {
-    	z.currentTurn++;
-  	}
-  	
-  	z.battleOrder[z.currentTurn].myTurn();
+	  if(z.enemies.length > 0 && z.pcs.length > 0){
+  	  z.currentTurn++;
+    	if(z.currentTurn >= z.battleOrder.length){
+      	z.currentTurn = 0;
+    	} 
+    	
+    	z.battleOrder[z.currentTurn].myTurn();
+    }else if(z.enemies.length == 0){
+      debug("YOU WIN");
+    }else{
+      debug("YOU LOSE");
+    }
 	}
 });
 
